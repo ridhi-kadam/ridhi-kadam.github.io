@@ -1,4 +1,4 @@
-# Ridhi Kadam — The Curious Casebook
+# Welcome to Ridhi Kadam's Library
 
 An interactive mystery-themed portfolio presented as a warm detective's library. The site is built with React, TypeScript, Vite, Tailwind CSS, and GSAP. Five tactile volumes open through a reversible 3D page-turn sequence into complete, résumé-backed scenes.
 
