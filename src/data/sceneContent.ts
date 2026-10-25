@@ -1,8 +1,9 @@
 import type { ExperienceCase, InterestEntry, SkillEntry, SkillGroup } from '../types/portfolio'
 
 // This file is the single editable content source for the immersive section scenes.
-// Career details are paraphrased from Ridhi_Kadam_Resume(PM).pdf; personal captions
-// describe only the activities visible in the supplied Pictures folder.
+// Career details are paraphrased from Ridhi_Kadam_Resume(PM).pdf and
+// Ridhi Projects and Experience.pdf; personal captions describe only the
+// activities visible in the supplied Pictures folder.
 
 export const aboutBlurb = [
   'Ridhi Kadam is a UC Berkeley student with a keen interest in the intersection of business and technology. She is class of 2028, majoring in Data Science & Economics, with a domain emphasis in Industrial Business Analytics.',
@@ -20,17 +21,20 @@ export const experienceCases: ExperienceCase[] = [
     category: 'Marine biodiversity ML',
     image: '/assets/cases/national-geographic.png',
     imageAlt: 'Underwater object detection results identifying marine species in expedition footage.',
-    teaser: 'Turning hundreds of hours of underwater footage into a usable classification workflow.',
-    mystery: 'Marine footage required extensive manual review and labeling before researchers could organize observations by species.',
-    investigation: 'Ridhi led product roadmapping and PRD development for a marine biodiversity classification model. She translated user stories into a workflow that addressed the most time-consuming parts of labeling.',
+    teaser: 'Turning 500+ hours of underwater footage into a scalable research and classification workflow.',
+    mystery: 'Marine researchers had to manually review extensive underwater recordings, identify organisms, and label observations. The footage also introduced difficult computer-vision conditions such as variable lighting, low contrast, complex backgrounds, and many organisms without complete species-level annotations.',
+    investigation: 'Ridhi developed an end-to-end computer-vision workflow for National Geographic Pristine Seas and FathomNet. Her work spans organism detection and tracking, visual-similarity clustering, pipeline optimization, and early product design so researchers can inspect model results without needing extensive machine-learning expertise.',
     evidence: [
-      'Applied vision-language models with DBSCAN and K-Means clustering across more than 500 hours of footage.',
-      'Developed a clustering tool designed to categorize more than 400 marine species.',
-      'Prototyped interfaces and optimized workflows using Lovable.',
+      'Integrated vision-language models with ByteTrack to detect organisms and preserve their identities across consecutive frames in more than 500 hours of deep-sea footage.',
+      'Built an embedding and feature-engineering pipeline with DBSCAN and K-Means, expanding the clustering workflow from 50+ to 400+ marine species.',
+      'Connected detection, tracking, embedding generation, and clustering into a more efficient pipeline while exploring lightweight supervised classification and human-in-the-loop validation.',
+      'Prototyped researcher-facing interfaces with Lovable and contributed to product roadmapping for reviewing detections, clusters, and model predictions.',
     ],
     findings: [
-      'Reached 92% detection accuracy.',
-      'Reduced labeling time by 40%.',
+      'Reached approximately 92% detection accuracy while monitoring more than 15 marine taxa.',
+      'Reduced manual labeling time by approximately 50%, from 40 to 20 hours per processing batch.',
+      'Reduced end-to-end processing time by approximately 40%.',
+      'Made large visual datasets easier for researchers to inspect, organize, and annotate in groups rather than image by image.',
     ],
   },
   {
@@ -42,17 +46,19 @@ export const experienceCases: ExperienceCase[] = [
     category: 'Product and strategy consulting',
     image: '/assets/cases/valley-consulting.png',
     imageAlt: 'A strategy presentation comparing technology adoption outcomes in port operations.',
-    teaser: 'Moving consumer product questions from open-ended research to stakeholder recommendations.',
-    mystery: 'Large organizations needed clear evidence for product expansion and feature-prioritization decisions.',
-    investigation: 'As a senior technical consultant, Ridhi leads consumer product initiatives from concept through execution for Fortune 500 organizations, including Qualcomm and Amazon.',
+    teaser: 'Turning ambiguous product questions into evidence-backed strategy and tangible concepts.',
+    mystery: 'Fortune 500 clients needed to understand customer needs, competitive gaps, and product opportunities before making expansion and feature-prioritization decisions. The challenge was to connect broad business goals to specific, feasible recommendations.',
+    investigation: 'As a senior technical consultant, Ridhi works across market research, product strategy, competitive analysis, and design thinking for clients including Qualcomm and Amazon. She defines the underlying problem, translates stakeholder goals into research questions and success criteria, and turns the resulting evidence into product concepts and decision-ready recommendations.',
     evidence: [
-      'Conducted competitive analysis using a Lean Six Sigma framework.',
-      'Worked across functions to turn analytical findings into product recommendations.',
-      'Built Figma presentations that made the team’s recommendations clear to stakeholders.',
+      'Analyzed competitors, feature sets, market positioning, customer friction, industry trends, and business constraints to identify opportunities for differentiation.',
+      'Used Figma to build low- and high-fidelity wireframes, customer journeys, user flows, feature-prioritization frameworks, strategic roadmaps, and client-facing presentations.',
+      'Structured recommendations around the problem, supporting evidence, proposed action, customer value, business impact, feasibility, and implementation tradeoffs.',
+      'Iterated with business, product, technical, and design stakeholders, adapting the communication and deliverables to their different priorities.',
     ],
     findings: [
-      'Created decision-ready guidance for expansion and feature prioritization.',
-      'Connected technical analysis with stakeholder-facing product narratives.',
+      'Made abstract research findings tangible enough for stakeholders to compare, critique, and use in product decisions.',
+      'Balanced user experience, business strategy, and realistic product execution in final recommendations.',
+      'Strengthened alignment by incorporating stakeholder feedback into revised analyses, concepts, and Figma deliverables.',
     ],
   },
   {
@@ -64,17 +70,19 @@ export const experienceCases: ExperienceCase[] = [
     category: 'AI pricing automation',
     image: '/assets/cases/nue-io.png',
     imageAlt: 'Diagram of Nue.io’s revenue lifecycle platform and pricing products.',
-    teaser: 'Translating natural-language pricing rules into production-ready logic.',
-    mystery: 'Configuring complex pricing logic was slow, while edge cases made workflow reliability difficult to monitor.',
-    investigation: 'Ridhi built an MCP server that converts natural-language pricing instructions into deployable JavaScript plugins, then integrated an AI agent into Salesforce CPQ.',
+    teaser: 'Turning plain-English pricing rules into tested, production-ready JavaScript logic.',
+    mystery: 'Non-engineering users needed a practical way to define discounts, thresholds, add-ons, and quote conditions without writing code. The generated logic also had to be validated against edge cases before entering a Salesforce CPQ pricing workflow.',
+    investigation: 'Ridhi worked on an MCP server that acts as a controlled bridge between an AI agent and the development workflow. It converts natural-language pricing instructions into JavaScript plugins, validates their structure, tests expected pricing scenarios, and prepares the code for deployment. She also developed the chatbot interface that makes the AI pricing agent approachable for non-technical users.',
     evidence: [
-      'Ran A/B tests to improve pricing workflow and reliability.',
-      'Created monitoring systems for performance, edge cases, and product improvements.',
-      'Used Kanban and Jira to organize iteration and follow-through.',
+      'Tested discount thresholds, missing inputs, incorrect calculations, and other pricing edge cases, then used telemetry to track failures and system behavior.',
+      'Designed chatbot flows for user prompts, AI responses, loading states, errors, and readable presentation of generated pricing logic and recommendations.',
+      'Implemented expandable and compact chatbot states while preserving message history, current input, and AI response state across layout changes.',
+      'Ran A/B tests and used Kanban and Jira to organize reliability improvements, monitoring work, and product iteration.',
     ],
     findings: [
       'Cut pricing-processing time by 85%.',
-      'Established a clearer operating loop for tracking system behavior and improvements.',
+      'Enabled non-engineering users to describe pricing behavior in plain English and receive working JavaScript logic.',
+      'Created a more production-ready interaction by pairing code generation with validation, scenario testing, telemetry, and recoverable interface states.',
     ],
   },
   {
@@ -86,17 +94,19 @@ export const experienceCases: ExperienceCase[] = [
     category: 'Education RAG systems',
     image: '/assets/cases/wested.png',
     imageAlt: 'Architecture diagram for an education retrieval and generation pipeline.',
-    teaser: 'Making administrative assessment PDFs searchable, structured, and useful to generative AI.',
-    mystery: 'Important assessment content lived in PDFs that were difficult to retrieve from and inefficient to use in generative workflows.',
-    investigation: 'Ridhi built retrieval-augmented generation systems and led the product design of a serverless AI pipeline in partnership with engineering.',
+    teaser: 'Grounding AI-generated science assessments in trusted, standards-aligned source material.',
+    mystery: 'Dense NGSS documents contained grade-level standards, disciplinary core ideas, science practices, crosscutting concepts, and performance expectations. A general language model could overlook that structure or generate content that was not sufficiently grounded, grade-appropriate, or standards-aligned.',
+    investigation: 'Ridhi helped build a retrieval-augmented generation system that structures NGSS documents and retrieves the right evidence before an LLM generates or adapts science assessment content. She focused on preserving context, adding standards-specific metadata, and evaluating whether outputs were relevant, scientifically accurate, and useful to education teams.',
     evidence: [
-      'Used AWS API Gateway and Lambda in the planned serverless architecture.',
-      'Converted educational documents into queryable vector knowledge bases.',
-      'Designed retrieval and validation steps around administrative assessment content.',
+      'Parsed standards documents into meaningful chunks and tagged them with grade level, topic, DCI, SEP, CCC, and performance-expectation metadata.',
+      'Created embeddings with AWS Bedrock and Amazon Titan Embeddings, then stored the chunks in a vector-based knowledge system.',
+      'Combined semantic vector search with metadata filtering so retrieval remained both conceptually relevant and standards-specific.',
+      'Refined chunking, metadata, filtering logic, and prompts after testing relevance, grade appropriateness, alignment, scientific accuracy, and assessment usefulness.',
     ],
     findings: [
       'Increased output efficiency by more than 50%.',
-      'Created a repeatable path from source PDFs to structured generative-AI outputs.',
+      'Reduced hallucination risk by requiring the model to ground generated content in retrieved NGSS material.',
+      'Reduced manual searching and drafting while creating a repeatable path from source standards to reliable generative-AI outputs.',
     ],
   },
   {
@@ -108,11 +118,12 @@ export const experienceCases: ExperienceCase[] = [
     category: 'UC Berkeley Datathon - 2nd place',
     image: '/assets/cases/smartclinical-analysis.png',
     imageAlt: 'Exploratory analysis dashboard for clinical risk and hospital resource allocation.',
-    teaser: 'Predicting patient risk while keeping real hospital resource constraints visible.',
+    teaser: 'Pairing patient-risk prediction with real-time, decision-oriented resource planning.',
     mystery: 'Hospitals need to identify clinical risk early and allocate limited resources without losing sight of operational constraints.',
-    investigation: 'Ridhi helped build a Random Forest classifier that predicts patient risk from clinical data and connects those predictions to real-time resource allocation.',
+    investigation: 'Ridhi helped build a Random Forest classifier that predicts patient risk from clinical data and connects those predictions to real-time resource allocation. She also worked on the analytical frontend so model outputs could support practical decisions rather than remain isolated technical results.',
     evidence: [
       'Created a Tableau dashboard for resource constraints and hospital KPIs.',
+      'Developed a Streamlit interface for presenting machine-learning outputs and real-time decision support.',
       'Used iterative SQL analysis across the data workflow.',
       'Developed user-centered recommendations for product scalability.',
     ],
@@ -137,17 +148,18 @@ export const experienceCases: ExperienceCase[] = [
     category: 'SodaHacks - 1st place',
     image: '/assets/cases/sathersense.png',
     imageAlt: 'Mobile navigation interface with an indoor floor plan and step-by-step directions.',
-    teaser: 'Designing indoor directions around the needs of visually impaired Berkeley students.',
-    mystery: 'Indoor environments are often missing the accessible, step-by-step guidance available in outdoor navigation products.',
-    investigation: 'Ridhi built an indoor navigation application with React Native, Expo, and TypeScript, modeling building layouts as node-edge graphs to find useful routes.',
+    teaser: 'Combining indoor maps, live sign recognition, and accessible route guidance.',
+    mystery: 'Indoor environments often lack the accessible, step-by-step directions available outdoors. A useful campus tool needed to determine a user’s location from nearby signs, route across multiple floors, and account for rooms, hallway intersections, stairs, elevators, and restrooms.',
+    investigation: 'Ridhi built a React Native, Expo, and TypeScript mobile prototype for navigating Wheeler and Dwinelle halls. She modeled each floor as a simplified graph, connected floors through stair and elevator nodes, and developed a flow that converts live camera input into a matched location before calculating a route.',
     evidence: [
-      'Applied optimal graph algorithms to make navigation easier to follow.',
-      'Developed an optical character recognition pipeline that turns live camera input into navigation decisions.',
-      'Used Cursor as part of the application-development stack.',
+      'Implemented A* pathfinding that accepts current and destination node IDs and returns the shortest route as a sequence of nodes.',
+      'Designed an OCR pipeline that photographs a sign, extracts and normalizes its text, matches it against room and landmark labels, and selects the best graph node.',
+      'Used Expo Camera with an ML Kit integration path in an Expo development build to connect live visual input to the navigation workflow.',
+      'Used AI-assisted development to refine app architecture, debug routing logic, explore OCR edge cases, and improve the user flow under hackathon constraints.',
     ],
     findings: [
       'Won first place at the UC Berkeley SodaHacks hackathon.',
-      'Connected accessible interface design with graph-based routing and live visual input.',
+      'Produced a working mobile MVP that joined accessible interface design, multi-floor graph routing, and live visual input in one navigation flow.',
     ],
   },
 ]

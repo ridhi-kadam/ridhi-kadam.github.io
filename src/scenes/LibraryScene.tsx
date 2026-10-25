@@ -21,7 +21,7 @@ type BackgroundVolumeStyle = CSSProperties & {
 const backgroundVolumeWidths = [8, 11, 13, 7, 14, 9, 12, 8, 10, 7, 13, 9, 8, 14, 8, 11, 7, 13, 9, 14, 7, 10, 12, 8]
 const backgroundVolumeHeights = [62, 79, 88, 56, 92, 71, 84, 65, 77, 58, 89, 73, 66, 94, 69, 82, 57, 87, 72, 91, 61, 76, 85, 67]
 const backgroundVolumeTilts = [-1.4, .4, -.3, 1.8, -.5, .7, -1, .2, .8, -1.6, .3, -.4, 1.2, -.2, -1.1, .5, -1.8, .2, 1.1, -.4, .7, -1.3, .3, -.6]
-const backgroundVolumeColors = ['#4d2926', '#314536', '#67452e', '#253c35', '#593029', '#6a5134', '#3a4b39', '#472522']
+const backgroundVolumeColors = ['#6c302c', '#28564d', '#805137', '#28475b', '#77382f', '#80613e', '#3d654f', '#563044']
 
 const backgroundVolumes = Array.from({ length: 24 }, (_, index) => ({
   id: index,
@@ -114,12 +114,13 @@ export function LibraryScene({ busy, onOpenBook }: LibrarySceneProps) {
             <b className="fireplace__flame fireplace__flame--one" />
             <b className="fireplace__flame fireplace__flame--two" />
             <b className="fireplace__flame fireplace__flame--three" />
+            <span className="fireplace__sparks"><i /><i /><i /><i /></span>
             <em />
           </div>
           <div className="fireplace__hearth" />
         </div>
-        <div className="ivy ivy--left"><i /><i /><i /><i /><i /><i /></div>
-        <div className="ivy ivy--right"><i /><i /><i /><i /><i /></div>
+        <div className="ivy ivy--left"><i /><i /><i /><i /><i /><i /><i /><i /></div>
+        <div className="ivy ivy--right"><i /><i /><i /><i /><i /><i /><i /></div>
         <div className="floor-rug" />
       </div>
       <div className="cursor-illumination" aria-hidden="true" />

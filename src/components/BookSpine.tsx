@@ -98,6 +98,8 @@ export const BookSpine = forwardRef<HTMLButtonElement, BookSpineProps>(function 
         onClick={(event) => onOpen(book, event.currentTarget)}
       >
         <span className="book-spine__spotlight" aria-hidden="true" />
+        <span className="book-spine__paper-edge" aria-hidden="true" />
+        <span className="book-spine__brush" aria-hidden="true" />
         <span className="book-spine__top" aria-hidden="true" />
         <span className="book-spine__ridge book-spine__ridge--top" aria-hidden="true" />
         <span className="book-spine__ridge book-spine__ridge--bottom" aria-hidden="true" />
