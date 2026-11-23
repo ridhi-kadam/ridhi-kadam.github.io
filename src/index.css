@@ -1759,7 +1759,7 @@ html[data-design-preview='polished'] .background-globe {
   filter: drop-shadow(0 5px 7px rgba(42, 23, 17, .22));
   opacity: .68;
   pointer-events: none;
-  transform: translate(-.92cm, .19cm);
+  transform: translate(-.90cm, .19cm) scale(.98);
   transition: filter 240ms ease, opacity 240ms ease;
 }
 
