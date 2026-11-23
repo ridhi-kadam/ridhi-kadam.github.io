@@ -12,6 +12,8 @@ type BookSpineStyle = CSSProperties & {
   '--book-tilt': string
   '--spot-x': string
   '--spot-y': string
+  '--book-pointer-x': string
+  '--book-pointer-y': string
 }
 
 type BookPositionStyle = CSSProperties & {
@@ -55,6 +57,8 @@ export const BookSpine = forwardRef<HTMLButtonElement, BookSpineProps>(function 
     '--book-tilt': `${book.tilt}deg`,
     '--spot-x': '50%',
     '--spot-y': '30%',
+    '--book-pointer-x': '0deg',
+    '--book-pointer-y': '0deg',
   }
 
   const positionStyle: BookPositionStyle = {
@@ -67,6 +71,16 @@ export const BookSpine = forwardRef<HTMLButtonElement, BookSpineProps>(function 
     const bounds = event.currentTarget.getBoundingClientRect()
     event.currentTarget.style.setProperty('--spot-x', `${event.clientX - bounds.left}px`)
     event.currentTarget.style.setProperty('--spot-y', `${event.clientY - bounds.top}px`)
+    const pointerX = ((event.clientX - bounds.left) / bounds.width - .5) * 8
+    const pointerY = ((event.clientY - bounds.top) / bounds.height - .5) * -5
+    event.currentTarget.style.setProperty('--book-pointer-x', `${pointerX.toFixed(2)}deg`)
+    event.currentTarget.style.setProperty('--book-pointer-y', `${pointerY.toFixed(2)}deg`)
+  }
+
+  const handlePointerLeave = (event: PointerEvent<HTMLButtonElement>) => {
+    event.currentTarget.style.setProperty('--book-pointer-x', '0deg')
+    event.currentTarget.style.setProperty('--book-pointer-y', '0deg')
+    onPreviewEnd()
   }
 
   return (
@@ -84,7 +98,7 @@ export const BookSpine = forwardRef<HTMLButtonElement, BookSpineProps>(function 
         aria-label={`Open ${book.title}: ${book.subtitle}`}
         onPointerEnter={() => onPreview(book)}
         onPointerMove={handlePointerMove}
-        onPointerLeave={onPreviewEnd}
+        onPointerLeave={handlePointerLeave}
         onFocus={() => onPreview(book)}
         onBlur={onPreviewEnd}
         onKeyDown={(event) => {

@@ -20,11 +20,21 @@ export default function ContactLetter({ titleId }: { titleId: string }) {
       scene="contact"
       eyebrow="Library hallway · Private correspondence"
       title="Contact"
-      intro="One last door. One letter addressed to the next collaborator."
+      intro="One last door. One last step to solve the case and find the answer we're looking for."
       titleId={titleId}
     >
       <div className="contact-hallway" data-opened={opened ? 'true' : 'false'}>
-        <div className="contact-door" aria-hidden="true"><span /><i /></div>
+        <div className="contact-door" aria-hidden="true">
+          <div className="contact-door__panel contact-door__panel--upper-left" />
+          <div className="contact-door__panel contact-door__panel--upper-right" />
+          <div className="contact-door__mail-slot" />
+          <div className="contact-door__panel contact-door__panel--lower-left" />
+          <div className="contact-door__panel contact-door__panel--lower-right" />
+          <div className="contact-door__hardware">
+            <span className="contact-door__handle" />
+            <span className="contact-door__lock" />
+          </div>
+        </div>
         {!opened ? (
           <button className="sealed-letter" type="button" onClick={() => setOpened(true)} aria-label="Break the wax seal and read Ridhi’s contact letter">
             <span className="sealed-letter__paper">Private correspondence</span>

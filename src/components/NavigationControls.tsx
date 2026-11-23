@@ -32,22 +32,6 @@ export function NavigationControls({ activeId, busy, onNavigate, onReturn }: Nav
   return (
     <header className="navigation-controls" aria-label="Primary navigation">
       <div className="navigation-controls__left">
-        {activeId ? (
-          <button
-            className="library-mark"
-            type="button"
-            onClick={onReturn}
-            aria-label="Return to the library"
-            disabled={busy}
-          >
-            <span>R</span><i aria-hidden="true" /><span>K</span>
-          </button>
-        ) : (
-          <a className="library-mark" href="#library" aria-label={`${profile.name} home`}>
-            <span>R</span><i aria-hidden="true" /><span>K</span>
-          </a>
-        )}
-
         {activeId && (
           <button className="return-control" type="button" onClick={onReturn} disabled={busy}>
             <span aria-hidden="true">←</span>

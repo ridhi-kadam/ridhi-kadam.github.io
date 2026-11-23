@@ -3,6 +3,12 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
 
+const designPreview = new URLSearchParams(window.location.search).get('preview')
+
+if (designPreview === 'polished') {
+  document.documentElement.dataset.designPreview = 'polished'
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

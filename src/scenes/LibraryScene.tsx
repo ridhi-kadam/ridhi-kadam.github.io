@@ -59,18 +59,73 @@ export function LibraryScene({ busy, onOpenBook }: LibrarySceneProps) {
   const [previewedId, setPreviewedId] = useState<string | null>(null)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const bookRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const globeRotation = useRef(0)
+  const globePointerX = useRef<number | null>(null)
   const previewedBook = portfolioBooks.find((book) => book.id === previewedId)
 
   const moveLantern = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType === 'touch') return
     const bounds = event.currentTarget.getBoundingClientRect()
+    const normalizedX = (event.clientX - bounds.left) / bounds.width - .5
+    const normalizedY = (event.clientY - bounds.top) / bounds.height - .5
     event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - bounds.left}px`)
     event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - bounds.top}px`)
     event.currentTarget.style.setProperty('--cursor-light', '1')
+    event.currentTarget.style.setProperty('--hero-shift-x', `${(normalizedX * 5).toFixed(2)}px`)
+    event.currentTarget.style.setProperty('--hero-shift-y', `${(normalizedY * 3).toFixed(2)}px`)
+    event.currentTarget.style.setProperty('--shelf-shift-x', `${(normalizedX * -5).toFixed(2)}px`)
+    event.currentTarget.style.setProperty('--shelf-shift-y', `${(normalizedY * -3).toFixed(2)}px`)
+
+    const fire = event.currentTarget.querySelector<HTMLElement>('.background-fire')
+    if (fire) {
+      const fireBounds = fire.getBoundingClientRect()
+      const fireX = (event.clientX - (fireBounds.left + fireBounds.width / 2)) / (fireBounds.width * 1.25)
+      const fireY = (event.clientY - (fireBounds.top + fireBounds.height / 2)) / (fireBounds.height * 1.25)
+      const withinHearth = Math.abs(fireX) <= 1 && Math.abs(fireY) <= 1
+      const clampedX = Math.max(-1, Math.min(1, fireX))
+      const clampedY = Math.max(-1, Math.min(1, fireY))
+      fire.style.setProperty('--fire-shift-x', `${(withinHearth ? clampedX * 10 : 0).toFixed(2)}px`)
+      fire.style.setProperty('--fire-shift-y', `${(withinHearth ? clampedY * -6 : 0).toFixed(2)}px`)
+      fire.style.setProperty('--fire-lean', `${(withinHearth ? clampedX * 4.5 : 0).toFixed(2)}deg`)
+    }
+
+    const globe = event.currentTarget.querySelector<HTMLElement>('.background-globe')
+    if (globe) {
+      const globeBounds = globe.getBoundingClientRect()
+      const globeX = (event.clientX - (globeBounds.left + globeBounds.width / 2)) / (globeBounds.width * .62)
+      const globeY = (event.clientY - (globeBounds.top + globeBounds.height * .42)) / (globeBounds.height * .48)
+      const withinGlobe = globeX * globeX + globeY * globeY <= 1
+
+      if (withinGlobe) {
+        if (globePointerX.current !== null) {
+          globeRotation.current = (globeRotation.current + (event.clientX - globePointerX.current) * 1.7) % 360
+        }
+        globePointerX.current = event.clientX
+        globe.dataset.active = 'true'
+        globe.style.setProperty('--globe-spin', `${globeRotation.current.toFixed(2)}deg`)
+        const normalizedSpin = ((globeRotation.current % 360) + 360) % 360
+        globe.style.setProperty('--globe-map-x', `${(-(normalizedSpin / 360) * 50).toFixed(3)}%`)
+        globe.style.setProperty('--globe-tilt', `${(Math.max(-1, Math.min(1, globeY)) * 3).toFixed(2)}deg`)
+      } else {
+        globePointerX.current = null
+        globe.dataset.active = 'false'
+        globe.style.setProperty('--globe-tilt', '0deg')
+      }
+    }
   }
 
   const dimLantern = (event: PointerEvent<HTMLElement>) => {
     event.currentTarget.style.setProperty('--cursor-light', '.28')
+    const fire = event.currentTarget.querySelector<HTMLElement>('.background-fire')
+    fire?.style.setProperty('--fire-shift-x', '0px')
+    fire?.style.setProperty('--fire-shift-y', '0px')
+    fire?.style.setProperty('--fire-lean', '0deg')
+    const globe = event.currentTarget.querySelector<HTMLElement>('.background-globe')
+    globePointerX.current = null
+    if (globe) {
+      globe.dataset.active = 'false'
+      globe.style.setProperty('--globe-tilt', '0deg')
+    }
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
@@ -100,33 +155,118 @@ export function LibraryScene({ busy, onOpenBook }: LibrarySceneProps) {
       <div className="library-atmosphere" aria-hidden="true">
         <div className="film-grain" />
         <div className="light-pool" />
+        <div className="window-breeze"><i /><i /><i /></div>
+        <div className="background-globe" data-active="false">
+          <span className="background-globe__sphere">
+            <svg className="background-globe__map" viewBox="0 0 400 100" preserveAspectRatio="none">
+              <defs>
+                <g id="antique-world-map">
+                  <path d="M10 27 18 17 36 13 54 20 63 31 55 39 46 36 39 45 28 41 22 34 13 33Z" />
+                  <path d="m38 10 8-7 10 3-3 10-9 4Z" />
+                  <path d="m45 49 14 3 8 12-6 22-8 10-7-15-1-16-7-9Z" />
+                  <path d="m84 29 10-8 17 1 8 8-7 8-17-1Z" />
+                  <path d="m96 39 17 1 10 13-5 26-12 16-9-13-7-25Z" />
+                  <path d="m113 25 20-12 31 4 25 13-7 13-21 4-13 11-17-4-8-14Z" />
+                  <path d="m150 61 13-8 15 7-4 11-15 4Z" />
+                  <path d="m169 74 14-5 11 8-5 12-17-1-7-8Z" />
+                </g>
+              </defs>
+              <g className="background-globe__grid">
+                <path d="M0 25h400M0 50h400M0 75h400" />
+                <path d="M25 0v100M75 0v100M125 0v100M175 0v100M225 0v100M275 0v100M325 0v100M375 0v100" />
+              </g>
+              <g className="background-globe__continents">
+                <use href="#antique-world-map" />
+                <use href="#antique-world-map" transform="translate(200 0)" />
+              </g>
+            </svg>
+            <i /><i /><i />
+          </span>
+          <small>Drag light across the globe</small>
+        </div>
+        <div className="background-fire">
+          <i /><i /><i /><i /><i />
+        </div>
         <div className="dust-field dust-field--one" />
         <div className="dust-field dust-field--two" />
         <BackgroundShelf side="left" />
         <BackgroundShelf side="right" />
         <div className="library-arch"><i /><b /><i /></div>
         <div className="wall-frame"><span>RK</span><small>PRIVATE ARCHIVE</small></div>
-        <div className="fireplace">
-          <div className="fireplace__mantel"><i /><i /><i /></div>
-          <div className="fireplace__opening">
-            <span className="fireplace__log fireplace__log--one" />
-            <span className="fireplace__log fireplace__log--two" />
-            <b className="fireplace__flame fireplace__flame--one" />
-            <b className="fireplace__flame fireplace__flame--two" />
-            <b className="fireplace__flame fireplace__flame--three" />
-            <span className="fireplace__sparks"><i /><i /><i /><i /></span>
-            <em />
-          </div>
-          <div className="fireplace__hearth" />
-        </div>
-        <div className="ivy ivy--left"><i /><i /><i /><i /><i /><i /><i /><i /></div>
-        <div className="ivy ivy--right"><i /><i /><i /><i /><i /><i /><i /></div>
         <div className="floor-rug" />
+      </div>
+      <div className="library-secrets" aria-label="Hidden library clues">
+        <button
+          className="secret-object secret-object--vase"
+          type="button"
+          disabled={busy}
+          aria-describedby="vase-clue"
+          aria-label="Reveal the clue beneath the flower vase and open Projects and Experience"
+          onClick={(event) => {
+            const book = portfolioBooks.find(({ id }) => id === 'work')
+            if (book) onOpenBook(book, event.currentTarget)
+          }}
+        >
+          <svg className="secret-object__trace" viewBox="0 0 102 144" aria-hidden="true">
+            <path d="M51 6C60 1 67 8 70 16c9-7 19-1 19 9 9 2 11 13 4 19 5 8-1 18-10 19-2 9-12 13-20 8l-2 9h11l-5 48c-1 7-7 11-16 11s-15-4-16-11l-5-48h11l-2-9c-9 5-19 1-20-8-10-1-15-11-10-19-8-6-5-18 4-20-1-10 10-16 19-9 3-8 10-15 19-9Z" />
+          </svg>
+          <span className="secret-object__clue" id="vase-clue">
+            <small>Clue 01 · Open Cases</small>
+            <strong>Every arrangement hides a pattern.</strong>
+            <em>Follow the green volume to the investigations where ideas became evidence.</em>
+          </span>
+        </button>
+
+        <button
+          className="secret-object secret-object--leaf"
+          type="button"
+          disabled={busy}
+          aria-describedby="leaf-clue"
+          aria-label="Reveal the clue beneath the leaf frame and open Skills"
+          onClick={(event) => {
+            const book = portfolioBooks.find(({ id }) => id === 'skills')
+            if (book) onOpenBook(book, event.currentTarget)
+          }}
+        >
+          <svg className="secret-object__trace" viewBox="0 0 82 130" aria-hidden="true">
+            <rect x="4" y="4" width="74" height="122" rx="2" />
+            <rect x="9" y="9" width="64" height="112" rx="1" opacity=".56" />
+          </svg>
+          <span className="secret-object__clue" id="leaf-clue">
+            <small>Clue 02 · Methods &amp; Tools</small>
+            <strong>Tools always leave fingerprints.</strong>
+            <em>The blue volume catalogs the methods behind every solved case.</em>
+          </span>
+        </button>
+
+        <button
+          className="secret-object secret-object--armillary"
+          type="button"
+          disabled={busy}
+          aria-describedby="armillary-clue"
+          aria-label="Reveal the clue beneath the armillary sphere and open About Me"
+          onClick={(event) => {
+            const book = portfolioBooks.find(({ id }) => id === 'about')
+            if (book) onOpenBook(book, event.currentTarget)
+          }}
+        >
+          <svg className="secret-object__trace" viewBox="0 0 104 142" aria-hidden="true">
+            <circle cx="52" cy="51" r="39" />
+            <ellipse cx="52" cy="51" rx="39" ry="15" transform="rotate(-18 52 51)" />
+            <ellipse cx="52" cy="51" rx="15" ry="39" transform="rotate(21 52 51)" />
+            <path d="M52 90v22M37 116h30M31 125h42" />
+          </svg>
+          <span className="secret-object__clue" id="armillary-clue">
+            <small>Clue 03 · The Subject</small>
+            <strong>The strongest signal is the subject herself.</strong>
+            <em>Data-minded, product-curious, and community-led—the crimson volume reveals what makes Ridhi stand out.</em>
+          </span>
+        </button>
       </div>
       <div className="cursor-illumination" aria-hidden="true" />
 
       <section className="library-hero" aria-labelledby="library-title">
-        <p className="library-hero__eyebrow"><span /> Private collection · Berkeley, California <span /></p>
+        <p className="library-hero__eyebrow"><span /> Open to data analytics and product management internships <span /></p>
         <h1 id="library-title">{profile.libraryTitle}</h1>
         <p className="library-hero__subtitle">{profile.librarySubtitle}</p>
         <p className="library-hero__role">{profile.roleLine}</p>
