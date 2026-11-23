@@ -1630,7 +1630,7 @@ button:disabled {
   text-transform: uppercase;
 }
 
-/* Optional review concept: append ?preview=polished to compare this restrained pass. */
+/* The polished library is the default; append ?preview=legacy for the earlier treatment. */
 html[data-design-preview='polished'] {
   --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }

@@ -5,7 +5,7 @@ import './index.css'
 
 const designPreview = new URLSearchParams(window.location.search).get('preview')
 
-if (designPreview === 'polished') {
+if (designPreview !== 'legacy') {
   document.documentElement.dataset.designPreview = 'polished'
 }
 
