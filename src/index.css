@@ -1657,7 +1657,6 @@ html[data-design-preview='polished'] .library-atmosphere::before {
   opacity: .8;
   transform: scale(1.02);
   transform-origin: 50% 48%;
-  animation: room-breathe 18s ease-in-out infinite alternate;
 }
 
 html[data-design-preview='polished'] .library-atmosphere::after {
@@ -1773,6 +1772,7 @@ html[data-design-preview='polished'] .background-globe__sphere {
   overflow: hidden;
   border: 1px solid rgba(88, 59, 42, .72);
   border-radius: 50%;
+  clip-path: circle(49.5% at 50% 50%);
   background:
     radial-gradient(circle at 35% 27%, rgba(244, 222, 173, .18), transparent 26%),
     radial-gradient(ellipse at 50% 54%, rgba(72, 89, 67, .14), rgba(70, 49, 36, .08) 62%, rgba(35, 21, 17, .18));
@@ -2038,12 +2038,31 @@ html[data-design-preview='polished'] .background-fire {
   position: absolute;
   z-index: 3;
   top: 53.5%;
-  left: 66.8%;
+  left: calc(50% + 355px);
   display: block;
   width: clamp(82px, 9vw, 136px);
   aspect-ratio: .82;
+  overflow: hidden;
+  clip-path: polygon(
+    50% 0,
+    62% 17%,
+    72% 9%,
+    78% 35%,
+    90% 26%,
+    88% 52%,
+    100% 69%,
+    91% 88%,
+    73% 100%,
+    26% 100%,
+    8% 88%,
+    0 69%,
+    13% 49%,
+    17% 26%,
+    32% 39%,
+    40% 15%
+  );
   pointer-events: none;
-  transform: translate(3cm, 0);
+  transform: none;
 }
 
 html[data-design-preview='polished'] .background-fire::before {
@@ -2142,6 +2161,12 @@ html[data-design-preview='polished'] .background-fire i:nth-child(5) {
   opacity: .54;
   animation-delay: -.84s;
   animation-duration: .88s;
+}
+
+@media (min-aspect-ratio: 19 / 10) and (min-width: 701px) {
+  html[data-design-preview='polished'] .background-fire {
+    left: calc(50% + 310px);
+  }
 }
 
 html[data-design-preview='polished'] .navigation-controls {

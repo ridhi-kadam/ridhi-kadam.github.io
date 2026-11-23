@@ -84,9 +84,9 @@ export function LibraryScene({ busy, onOpenBook }: LibrarySceneProps) {
       const withinHearth = Math.abs(fireX) <= 1 && Math.abs(fireY) <= 1
       const clampedX = Math.max(-1, Math.min(1, fireX))
       const clampedY = Math.max(-1, Math.min(1, fireY))
-      fire.style.setProperty('--fire-shift-x', `${(withinHearth ? clampedX * 10 : 0).toFixed(2)}px`)
-      fire.style.setProperty('--fire-shift-y', `${(withinHearth ? clampedY * -6 : 0).toFixed(2)}px`)
-      fire.style.setProperty('--fire-lean', `${(withinHearth ? clampedX * 4.5 : 0).toFixed(2)}deg`)
+      fire.style.setProperty('--fire-shift-x', `${(withinHearth ? clampedX * 5 : 0).toFixed(2)}px`)
+      fire.style.setProperty('--fire-shift-y', `${(withinHearth ? clampedY * -4 : 0).toFixed(2)}px`)
+      fire.style.setProperty('--fire-lean', `${(withinHearth ? clampedX * 3 : 0).toFixed(2)}deg`)
     }
 
     const globe = event.currentTarget.querySelector<HTMLElement>('.background-globe')
